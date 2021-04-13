@@ -22,11 +22,12 @@ class NetworkScan(object):
             googlewifi = WifiInfo(loop=self.loop, session=session)
             await googlewifi.get_wifi_info()
         if googlewifi.wifi_host is not None:
+            w = googlewifi.wifi_info
             wifi = {
                 "assistant": False,
                 "bluetooth": False,
                 "host": googlewifi.wifi_host,
-                "model": googlewifi.wifi_info.get("system", {}).get("modelId"),
+                "model": "None" if w is None else w.get("system", {}).get("modelId"),
                 "name": "Google WiFi",
             }
             units.append(wifi)
