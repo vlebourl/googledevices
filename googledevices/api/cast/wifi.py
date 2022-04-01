@@ -69,7 +69,7 @@ class Wifi(object):
             if result.status == 200:
                 returnvalue = True
         except AttributeError:
-            msg = "Error connecting to - {}".format(self.host)
+            msg = f"Error connecting to - {self.host}"
             log.error(msg)
         return returnvalue
 
@@ -96,7 +96,7 @@ class Wifi(object):
             if result.status == 200:
                 returnvalue = True
         except AttributeError:
-            msg = "Error connecting to - {}".format(self.host)
+            msg = f"Error connecting to - {self.host}"
             log.error(msg)
         return returnvalue
 

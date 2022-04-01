@@ -11,7 +11,7 @@ class Info(object):
         """Initialize the class."""
         self.session = session
         self.loop = loop
-        self.endpoint = WIFIAPIPREFIX + "status"
+        self.endpoint = f'{WIFIAPIPREFIX}status'
         self.host = host
         self._wifi_host = None
         self._wifi_info = {}

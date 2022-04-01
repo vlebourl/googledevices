@@ -9,11 +9,11 @@ def get_device_type(device_type=0):
         2: "Low Energy - LE-only",
         3: "Dual Mode - BR/EDR/LE",
     }
-    if device_type in [1, 2, 3]:
-        return_value = device_types[device_type]
-    else:
-        return_value = device_types[0]
-    return return_value
+    return (
+        device_types[device_type]
+        if device_type in [1, 2, 3]
+        else device_types[0]
+    )
 
 
 def format_json(source):

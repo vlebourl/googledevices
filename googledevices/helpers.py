@@ -50,10 +50,7 @@ async def gdh_request(
 
     if schema is None:
         schema = "http"
-    if port is not None:
-        port = ":{port}".format(port=port)
-    else:
-        port = ""
+    port = ":{port}".format(port=port) if port is not None else ""
     url = API.format(schema=schema, host=host, port=port, endpoint=endpoint)
     result = None
     if token is not None:
@@ -75,20 +72,17 @@ async def gdh_request(
                 webrequest = await session.get(
                     url, json=json_data, data=data, params=params, headers=headers, ssl=False
                 )
-            if json:
-                result = await webrequest.json()
-            else:
-                result = webrequest
+            result = await webrequest.json() if json else webrequest
     except (TypeError, KeyError, IndexError) as error:
-        log.error("Error parsing information - {}".format(error))
+        log.error(f"Error parsing information - {error}")
     except asyncio.TimeoutError:
-        log.error("Timeout contacting {}".format(url))
+        log.error(f"Timeout contacting {url}")
     except asyncio.CancelledError:
-        log.error("Cancellation error contacting {}".format(url))
+        log.error(f"Cancellation error contacting {url}")
     except aiohttp.ClientError as error:
-        log.error("ClientError contacting {} - {}".format(url, error))
+        log.error(f"ClientError contacting {url} - {error}")
     except gaierror as error:
-        log.error("I/O error contacting {} - {}".format(url, error))
+        log.error(f"I/O error contacting {url} - {error}")
     except Exception as error:  # pylint: disable=W0703
-        log.error("Unexpected error contacting {} - {}".format(url, error))
+        log.error(f"Unexpected error contacting {url} - {error}")
     return result

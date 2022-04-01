@@ -26,14 +26,10 @@ def get_wifi_clients(host, loop, show):
             googledevices = await Wifi(host=host, loop=loop, session=session).clients()
             print("This command will take some time to finish.")
             await googledevices.get_clients()
-        if show == "mac":
-            clients = []
-            for client in googledevices.clients:
-                clients.append(client["mac"])
-        elif show == "ip":
-            clients = []
-            for client in googledevices.clients:
-                clients.append(client["ip"])
+        if show == "ip":
+            clients = [client["ip"] for client in googledevices.clients]
+        elif show == "mac":
+            clients = [client["mac"] for client in googledevices.clients]
         else:
             clients = googledevices.clients
         print(format_json(clients))

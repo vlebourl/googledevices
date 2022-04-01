@@ -40,7 +40,7 @@ def get_all_devices(loop, subnet):
             import netifaces
 
             gateway = netifaces.gateways().get("default", {})
-            ipscope = gateway.get(netifaces.AF_INET, ())[0][:-1] + "0/24"
+            ipscope = f'{gateway.get(netifaces.AF_INET, ())[0][:-1]}0/24'
         else:
             ipscope = subnet
         async with gdh_session() as session:

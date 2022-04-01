@@ -14,16 +14,14 @@ def scan_network_old(loop, network, feature):
             import netifaces
 
             gateway = netifaces.gateways().get("default", {})
-            subnet = gateway.get(netifaces.AF_INET, ())[0][:-1] + "0/24"
+            subnet = f'{gateway.get(netifaces.AF_INET, ())[0][:-1]}0/24'
         else:
             subnet = network
         async with gdh_session() as session:
             googledevices = NetworkScan(loop, session)
             result = await googledevices.scan_for_units(subnet)
             if feature:
-                for unit in result:
-                    if unit[feature]:
-                        all_devices.append(unit)
+                all_devices.extend(unit for unit in result if unit[feature])
             else:
                 all_devices = result
             print(format_json(all_devices))
@@ -42,16 +40,14 @@ def scan_network(loop, network, feature):
             import netifaces
 
             gateway = netifaces.gateways().get("default", {})
-            subnet = gateway.get(netifaces.AF_INET, ())[0][:-1] + "0/24"
+            subnet = f'{gateway.get(netifaces.AF_INET, ())[0][:-1]}0/24'
         else:
             subnet = network
         async with gdh_session() as session:
             googledevices = NetworkScan(loop, session)
             result = await googledevices.scan_for_units(subnet)
             if feature:
-                for unit in result:
-                    if unit[feature]:
-                        all_devices.append(unit)
+                all_devices.extend(unit for unit in result if unit[feature])
             else:
                 all_devices = result
             print(format_json(all_devices))

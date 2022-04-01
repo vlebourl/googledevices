@@ -19,7 +19,7 @@ class Settings(object):
         supported_modes = ["now", "fdr"]
         returnvalue = False
         if mode not in supported_modes:
-            log_msg = "Mode {} is not supported.".format(mode)
+            log_msg = f"Mode {mode} is not supported."
             log.error(log_msg)
             return returnvalue
         data = {"params": mode}
@@ -40,7 +40,7 @@ class Settings(object):
             if result.status == 200:
                 returnvalue = True
         except AttributeError:
-            msg = "Error connecting to - {}".format(self.host)
+            msg = f"Error connecting to - {self.host}"
             log.error(msg)
         return returnvalue
 
@@ -65,7 +65,7 @@ class Settings(object):
             if result.status == 200:
                 returnvalue = True
         except AttributeError:
-            msg = "Error connecting to - {}".format(self.host)
+            msg = f"Error connecting to - {self.host}"
             log.error(msg)
         return returnvalue
 
@@ -92,6 +92,6 @@ class Settings(object):
             if result.status == 200:
                 returnvalue = True
         except AttributeError:
-            msg = "Error connecting to - {}".format(self.host)
+            msg = f"Error connecting to - {self.host}"
             log.error(msg)
         return returnvalue

@@ -30,7 +30,7 @@ class Clients(object):
         if self.info.wifi_host is None:
             await log.error("Host is 'None', host can not be 'None'")
             return self._clients
-        endpoint = WIFIAPIPREFIX + "diagnostic-report"
+        endpoint = f'{WIFIAPIPREFIX}diagnostic-report'
         url = API.format(schema="http", host=self.info.wifi_host, port=":80", endpoint=endpoint)
         try:
             response = requests.request("GET", url)
@@ -44,7 +44,7 @@ class Clients(object):
                 info = {"ip": host, "mac": mac}
                 self._clients.append(info)
         except (TypeError, KeyError, IndexError) as error:
-            msg = "Error parsing information - {}".format(error)
+            msg = f"Error parsing information - {error}"
             log.error(msg)
         except (
             asyncio.TimeoutError,
@@ -52,7 +52,7 @@ class Clients(object):
             gaierror,
             asyncio.CancelledError,
         ) as error:
-            msg = "{} - {}".format(url, error)
+            msg = f"{url} - {error}"
             log.error(msg)
         except Exception as error:  # pylint: disable=W0703
             log.error(error)
